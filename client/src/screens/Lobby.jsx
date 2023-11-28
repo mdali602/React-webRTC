@@ -6,20 +6,19 @@ const LobbyScreen = () => {
   const [email, setEmail] = useState("");
   const [room, setRoom] = useState("");
 
-  const socket = useSocket();
+  const { socket } = useSocket();
   const navigate = useNavigate();
 
-  const handleSubmitForm = useCallback(
-    (e) => {
-      e.preventDefault();
-      socket.emit("room:join", { email, room });
-    },
-    [email, room, socket]
-  );
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    console.log("handleSubmitForm", { email, room });
+    socket.emit("room:join", { email, room });
+  };
 
   const handleJoinRoom = useCallback(
     (data) => {
       const { email, room } = data;
+      console.log("handleJoinRoom", { data, email });
       navigate(`/room/${room}`);
     },
     [navigate]
